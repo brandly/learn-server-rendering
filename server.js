@@ -25,7 +25,6 @@ function renderPage (options) {
 }
 
 function renderApp (props) {
-  console.log('props', props)
   const markup = DOM.renderToString(<RouterContext {...props} />)
   return renderPage({ markup, title: 'counter' })
 }
