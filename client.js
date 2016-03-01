@@ -1,9 +1,8 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
-import { Router, browserHistory } from 'react-router'
-import routes from './routes'
+import Root from './containers/root'
 
 ReactDOM.render(
-  <Router routes={routes} history={browserHistory} />,
+  <Root />,
   document.getElementById('main')
 )

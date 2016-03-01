@@ -1,11 +1,11 @@
-import Home from './home'
+import Feed from './containers/feed'
 import About from './about'
 
 export default [
   {
     path: '/',
     indexRoute: {
-      component: Home
+      component: Feed
     }
   },
   {

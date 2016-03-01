@@ -2,15 +2,16 @@ import express from 'express'
 import React from 'react'
 import DOM from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
+import { Provider } from 'react-redux'
 import browserify from 'browserify-middleware'
 import babelify from 'babelify'
-import Home from './home'
 import routes from './routes'
+import configureStore from './configure-store'
 
 const app = new express()
 
 function renderPage (options) {
-  const { title, markup } = options
+  const { title, markup, intialState } = options
   return `<!DOCTYPE html>
   <html>
     <head>
@@ -19,14 +20,21 @@ function renderPage (options) {
     </head>
     <body>
       <div id="main">${markup}</div>
+      <script>window.__INITIAL_STATE__ = ${JSON.stringify(intialState || {})}</script>
       <script src="/client.js"></script>
     </body>
   </html>`
 }
 
 function renderApp (props) {
-  const markup = DOM.renderToString(<RouterContext {...props} />)
-  return renderPage({ markup, title: 'counter' })
+  const store = configureStore()
+  const app = (
+    <Provider store={store}>
+      <RouterContext {...props} />
+    </Provider>
+  )
+  const markup = DOM.renderToString(app)
+  return renderPage({ markup, title: 'counter', intialState: store.getState() })
 }
 
 app.get('/client.js', browserify('client.js', {
