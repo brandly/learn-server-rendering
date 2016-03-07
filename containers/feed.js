@@ -24,11 +24,12 @@ class Feed extends Component {
   handleSubredditForm (e) {
     e.preventDefault()
     this.props.dispatch(push('/r/' + this.newSubredditInput.value))
+    this.newSubredditInput.value = ''
   }
 
   render () {
     const { subredditName, posts, isFetching, lastUpdated, error } = this.props
-    console.log('rendering', error)
+
     return (
       <div className="feed">
         <h1>r/{subredditName}</h1>
