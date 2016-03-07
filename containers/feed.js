@@ -27,18 +27,19 @@ class Feed extends Component {
   }
 
   render () {
-    const { subredditName, posts, isFetching, lastUpdated } = this.props
-
+    const { subredditName, posts, isFetching, lastUpdated, error } = this.props
+    console.log('rendering', error)
     return (
       <div className="feed">
         <h1>r/{subredditName}</h1>
-        <p>
+        <div>
           {lastUpdated &&
-            <span>
-              Last updated at {new Date(lastUpdated).toLocaleTimeString()}
-            </span>
+            <p>Last updated at {new Date(lastUpdated).toLocaleTimeString()}</p>
           }
-        </p>
+          {error &&
+            <p>{error}</p>
+          }
+        </div>
         <form onSubmit={(e) => this.handleSubredditForm(e)}>
           <input type="text" ref={input => this.newSubredditInput = input} />
         </form>
@@ -67,13 +68,14 @@ function mapStateToProps (state, routing) {
   const { postsBySubreddit } = state
   const subredditName = routing.params.subreddit
   const subreddit = postsBySubreddit[subredditName] || { isFetching: true, posts: [] }
-  const { isFetching, posts, lastUpdated } = subreddit
+  const { isFetching, posts, lastUpdated, error } = subreddit
 
   return {
     subredditName,
     posts,
     isFetching,
-    lastUpdated
+    lastUpdated,
+    error
   }
 }
 
