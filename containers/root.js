@@ -7,7 +7,7 @@ import routes from '../routes'
 import configureStore from '../configure-store'
 
 const intialState = (typeof window === 'object' && window.__INITIAL_STATE__) || {}
-const store = configureStore(intialState)
+const store = configureStore(intialState, browserHistory)
 
 const history = syncHistoryWithStore(browserHistory, store)
 

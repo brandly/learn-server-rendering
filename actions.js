@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch'
 export const REQUEST_HOT_POSTS = 'REQUEST_HOT_POSTS'
 export const HOT_POSTS_SUCCESS = 'HOT_POSTS_SUCCESS'
 // export const HOT_POSTS_ERROR = 'HOT_POSTS_ERROR'
+export const SWITCH_SUBREDDIT = 'SWITCH_SUBREDDIT'
 
 function requestHotPosts (subreddit) {
   return {
@@ -17,6 +18,13 @@ function hotPostsSuccess (subreddit, posts) {
     type: HOT_POSTS_SUCCESS,
     posts: posts,
     receivedAt: Date.now()
+  }
+}
+
+export function switchSubreddit (newSubreddit) {
+  return {
+    newSubreddit,
+    type: SWITCH_SUBREDDIT
   }
 }
 

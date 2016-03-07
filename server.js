@@ -26,7 +26,7 @@ function renderPage (options) {
   </html>`
 }
 
-function renderApp (props) {
+function renderApp (props, callback) {
   const store = configureStore()
   const app = (
     <Provider store={store}>
@@ -34,7 +34,7 @@ function renderApp (props) {
     </Provider>
   )
   const markup = DOM.renderToString(app)
-  return renderPage({ markup, title: 'counter', intialState: store.getState() })
+  callback(renderPage({ markup, title: 'counter', intialState: store.getState() }))
 }
 
 app.get('/client.js', browserify('client.js', {
@@ -42,13 +42,15 @@ app.get('/client.js', browserify('client.js', {
 }))
 
 app.get('/*', (req, res) => {
-  match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+  match({routes, location: req.url}, (error, redirectLocation, props) => {
     if (error) {
       res.status(500).send(error)
     } else if (redirectLocation) {
       res.redirect(redirectLocation)
-    } else if (renderProps) {
-      res.send(renderApp(renderProps))
+    } else if (props) {
+      renderApp(props, app => {
+        res.send(app)
+      })
     } else {
       res.status(404).end()
     }

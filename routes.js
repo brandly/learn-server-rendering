@@ -1,17 +1,17 @@
 import Feed from './containers/feed'
-import About from './about'
+import About from './containers/about'
 
 export default [
   {
     path: '/',
     indexRoute: {
-      component: Feed
+      component: About
     }
   },
   {
-    path: '/about',
+    path: '/r/:subreddit',
     indexRoute: {
-      component: About
+      component: Feed
     }
   }
 ]

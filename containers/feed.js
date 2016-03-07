@@ -1,26 +1,37 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchPostsIfNeeded } from '../actions'
+import { push } from 'react-router-redux'
+import { fetchPostsIfNeeded, switchSubreddit } from '../actions'
 import Posts from '../components/posts'
-
-const selectedSubreddit = 'nba'
 
 class Feed extends Component {
   constructor (props) {
     super(props)
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+  componentDidMount () {
+    const { dispatch, subredditName } = this.props
+    dispatch(fetchPostsIfNeeded(subredditName))
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { subredditName, dispatch } = this.props
+    if (nextProps.subredditName !== subredditName) {
+      dispatch(fetchPostsIfNeeded(nextProps.subredditName))
+    }
+  }
+
+  handleSubredditForm (e) {
+    e.preventDefault()
+    this.props.dispatch(push('/r/' + this.newSubredditInput.value))
   }
 
   render () {
-    const { posts, isFetching, lastUpdated } = this.props
+    const { subredditName, posts, isFetching, lastUpdated } = this.props
 
     return (
       <div className="feed">
-        <h1>Feed</h1>
+        <h1>r/{subredditName}</h1>
         <p>
           {lastUpdated &&
             <span>
@@ -28,6 +39,9 @@ class Feed extends Component {
             </span>
           }
         </p>
+        <form onSubmit={(e) => this.handleSubredditForm(e)}>
+          <input type="text" ref={input => this.newSubredditInput = input} />
+        </form>
         {isFetching && posts.length === 0 &&
           <h2>Loading...</h2>
         }
@@ -49,15 +63,16 @@ Feed.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, routing) {
   const { postsBySubreddit } = state
-  const subreddit = postsBySubreddit[selectedSubreddit] || { isFetching: true, posts: [] }
-
+  const subredditName = routing.params.subreddit
+  const subreddit = postsBySubreddit[subredditName] || { isFetching: true, posts: [] }
   const { isFetching, posts, lastUpdated } = subreddit
 
   return {
-    isFetching,
+    subredditName,
     posts,
+    isFetching,
     lastUpdated
   }
 }
