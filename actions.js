@@ -44,7 +44,7 @@ function simplifyPosts (json) {
 function fetchPosts(subreddit) {
   return dispatch => {
     dispatch(requestHotPosts(subreddit))
-    return fetch(`http://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then(req => {
         if (req.status < 300 && req.ok) {
           return req.json()
