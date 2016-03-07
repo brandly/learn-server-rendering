@@ -53,7 +53,7 @@ function fetchPosts(subreddit) {
         }
       })
       .then(json => dispatch(hotPostsSuccess(subreddit, simplifyPosts(json))))
-      .catch(error => dispatch(hotPostsError(subreddit, error)))
+      .catch(error => dispatch(hotPostsError(subreddit, error.toString())))
   }
 }
 
