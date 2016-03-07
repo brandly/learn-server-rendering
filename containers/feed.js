@@ -36,7 +36,7 @@ class Feed extends Component {
           <div className="header-left">
             <h1>r/{subredditName}</h1>
             {lastUpdated &&
-              <p className="feed-updated-at">updated at {new Date(lastUpdated).toLocaleTimeString()}</p>
+              <p className="feed-updated-at">as of {new Date(lastUpdated).toLocaleTimeString()}</p>
             }
             {error &&
               <p>{error}</p>
@@ -47,7 +47,7 @@ class Feed extends Component {
           </form>
         </header>
         {isFetching && posts.length === 0 &&
-          <h2>Loading...</h2>
+          <h2 className="feed-loading">Loading...</h2>
         }
         {!isFetching && posts.length === 0 &&
           <h2>Empty.</h2>

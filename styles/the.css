@@ -36,17 +36,18 @@ h3 {
 }
 
 .header {
-  padding: 18px 0 12px;
+  padding: 20px 0 4px;
 }
 
 .header-left {
   float: left;
 }
 
-.feed-updated-at {
+.feed-updated-at,
+.feed-loading {
   margin-top: 4px;
-  font-size: 11px;
-  text-transform: uppercase;
+  font-size: 12px;
+  color: #767676;
 }
 
 .switch-subreddit-form {
