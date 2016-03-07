@@ -57,12 +57,15 @@ function fetchPosts(subreddit) {
   }
 }
 
+const THREE_MINUTES = 1000 * 60 * 3
 function shouldFetchPosts (state, subreddit) {
   const posts = state.postsBySubreddit[subreddit]
   if (!posts) {
     return true
   } else if (posts.isFetching) {
     return false
+  } else if ((Date.now() - posts.lastUpdated) > THREE_MINUTES) {
+    return true
   } else {
     return posts.didInvalidate
   }

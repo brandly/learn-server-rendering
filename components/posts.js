@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 
 export default class Posts extends Component {
-  render() {
+  render () {
     const { posts } = this.props
 
     return (
