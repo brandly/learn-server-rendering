@@ -1,3 +1,4 @@
+import fs from 'fs'
 import express from 'express'
 import React from 'react'
 import DOM from 'react-dom/server'
@@ -12,11 +13,19 @@ const app = new express()
 
 function renderPage (options) {
   const { title, markup, intialState } = options
+  const reset = fs.readFileSync('./styles/reset.css')
+  const styles = fs.readFileSync('./styles/the.css')
   return `<!DOCTYPE html>
   <html>
     <head>
       <meta charset="UTF-8">
       <title>${title}</title>
+      <style>
+        ${reset}
+      </style>
+      <style>
+        ${styles}
+      </style>
     </head>
     <body>
       <div id="main">${markup}</div>

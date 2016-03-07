@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  color: #444;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.container {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+.header {
+  padding: 18px 0 12px;
+}
+
+.header-left {
+  float: left;
+}
+
+.feed-updated-at {
+  margin-top: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.switch-subreddit-form {
+  float: right;
+}
+
+.posts-list-item {
+  margin: 10px 0;
+}
+
+.posts-list-item .title a {
+  text-decoration: none;
+  color: inherit;
+}
+.posts-list-item .title a:hover {
+  text-decoration: underline;
+}
+
+.posts-list-item .meta {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #767676;
+}
+
+.posts-list-item .ups {
+  font-weight: bold;
+}

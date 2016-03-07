@@ -31,19 +31,21 @@ class Feed extends Component {
     const { subredditName, posts, isFetching, lastUpdated, error } = this.props
 
     return (
-      <div className="feed">
-        <h1>r/{subredditName}</h1>
-        <div>
-          {lastUpdated &&
-            <p>Last updated at {new Date(lastUpdated).toLocaleTimeString()}</p>
-          }
-          {error &&
-            <p>{error}</p>
-          }
-        </div>
-        <form onSubmit={(e) => this.handleSubredditForm(e)}>
-          <input type="text" ref={input => this.newSubredditInput = input} />
-        </form>
+      <div className="container">
+        <header className="header clearfix">
+          <div className="header-left">
+            <h1>r/{subredditName}</h1>
+            {lastUpdated &&
+              <p className="feed-updated-at">updated at {new Date(lastUpdated).toLocaleTimeString()}</p>
+            }
+            {error &&
+              <p>{error}</p>
+            }
+          </div>
+          <form onSubmit={(e) => this.handleSubredditForm(e)} className="switch-subreddit-form">
+            <input type="text" ref={input => this.newSubredditInput = input} placeholder="switch subreddit" />
+          </form>
+        </header>
         {isFetching && posts.length === 0 &&
           <h2>Loading...</h2>
         }
